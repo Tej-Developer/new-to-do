@@ -1,0 +1,2 @@
+- use session to login and save deails
+- after closeing tab it will remove all information

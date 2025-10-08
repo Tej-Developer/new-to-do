@@ -1,412 +1,703 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskForge - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+  </head>
+  <body>
+    <div class="content-container">
+      <!-- Notification -->
+      <div id="notification" class="notification green-background">
+        <iconify-icon
+          icon="mdi:check-circle-outline"
+          style="color: black"
+          width="24"
+          height="24"
+        ></iconify-icon>
+        <p>The task was deleted</p>
+      </div>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TaskForge</title>
-  <!-- google font: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <!-- main css -->
-  <link rel="stylesheet" href="../css/main.css" />
-  <link rel="stylesheet" href="../css/dashboard.css" />
-</head>
+      <!-- Header -->
+      <div class="max-width-container">
+        <div class="header flex items-center justify-between">
+          <h1 class="title">Task<span>Forge</span></h1>
+          <div class="buttons-container">
+            <button
+              id="add-task-cta"
+              class="button regular-button blue-background"
+            >
+              Add task
+            </button>
+            <button
+              class="button regular-button white-background"
+              onclick="window.location.href='contact.html'"
+            >
+              Contact
+            </button>
+            <button class="sign-out-cta button regular-button pink-background">
+              Sign out
+            </button>
+          </div>
+        </div>
+      </div>
 
-<body>
-  <!-- Because body has height 100%, we need a container to wrap the individual 
-    elements. The purpose is to add top & bottom padding -->
-  <div class="content-container">
-    <!-- delete success notification -->
-    <div id="notification" class="notification green-background">
-      <iconify-icon icon="mdi:check-circle-outline" style="color: black" width="24" height="24"></iconify-icon>
-      <p>The task was deleted</p>
+      <!-- View Options -->
+      <div class="radio-buttons-container">
+        <div class="max-width-container flex">
+          <div class="radio-container">
+            <input
+              type="radio"
+              id="list"
+              name="view-option"
+              value="list"
+              class="radio-input"
+              checked
+            />
+            <label for="list" class="radio-label">
+              <iconify-icon
+                icon="material-symbols:format-list-bulleted-rounded"
+                width="24"
+                height="24"
+              ></iconify-icon>
+              <span>List</span>
+            </label>
+          </div>
+          <div class="radio-container">
+            <input
+              type="radio"
+              id="board"
+              name="view-option"
+              value="board"
+              class="radio-input"
+            />
+            <label for="board" class="radio-label">
+              <iconify-icon
+                icon="ic:round-grid-view"
+                width="24"
+                height="24"
+              ></iconify-icon>
+              <span>Board</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tasks -->
+      <div class="max-width-container">
+        <!-- List View -->
+        <div id="list-view" class="list-view">
+          <div class="list-container pink">
+            <h2 class="list-header">
+              <span class="circle pink-background"></span
+              ><span class="text">To Do</span>
+            </h2>
+            <ul class="tasks-list"></ul>
+          </div>
+          <div class="list-container blue">
+            <h2 class="list-header">
+              <span class="circle blue-background"></span
+              ><span class="text">Doing</span>
+            </h2>
+            <ul class="tasks-list"></ul>
+          </div>
+          <div class="list-container green">
+            <h2 class="list-header">
+              <span class="circle green-background"></span
+              ><span class="text">Done</span>
+            </h2>
+            <ul class="tasks-list"></ul>
+          </div>
+        </div>
+
+        <!-- Board View -->
+        <div id="board-view" class="board-view hide">
+          <div>
+            <h2 class="list-header">
+              <span class="circle pink-background"></span
+              ><span class="text">College</span>
+            </h2>
+            <ul class="tasks-list pink"></ul>
+          </div>
+          <div>
+            <h2 class="list-header">
+              <span class="circle blue-background"></span
+              ><span class="text">Student Extra Activity</span>
+            </h2>
+            <ul class="tasks-list blue"></ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- header -->
-    <div class="max-width-container">
-      <div class="header flex items-center justify-between">
-        <h1 class="title">Task<span>Forge</span></h1>
-        <div class="buttons-container">
-          <button id="add-task-cta" class="button regular-button blue-background">
-            Add task
+
+    <!-- Add/Edit Task Overlay -->
+    <div id="set-task-overlay" class="overlay set-task-overlay hide">
+      <div class="overlay-content pink-background">
+        <button
+          class="button circle-button blue-background flex justify-center items-center close-button"
+        >
+          <iconify-icon
+            icon="material-symbols:close-rounded"
+            width="26"
+            height="26"
+          ></iconify-icon>
+        </button>
+        <h1 class="header" id="overlay-title">Add task</h1>
+        <form class="form" id="task-form" autocomplete="off">
+          <label for="name" class="label">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="input white-background"
+            required
+          />
+
+          <label for="description" class="label">Description</label>
+          <textarea
+            name="description"
+            id="description"
+            rows="8"
+            class="textarea-input white-background"
+            required
+          ></textarea>
+
+          <label for="date" class="label">Due Date</label>
+          <input
+            type="date"
+            name="date"
+            id="date"
+            class="input white-background"
+            required
+          />
+
+          <label for="category" class="label">Category</label>
+          <select
+            name="category"
+            id="category"
+            class="input white-background"
+            required
+          >
+            <option value="">Select category</option>
+            <option value="college">College</option>
+            <option value="extra-activity">Student Extra Activity</option>
+          </select>
+
+          <h2 class="label">Status</h2>
+          <div style="position: relative">
+            <div
+              id="status-select"
+              class="status-select white-background flex items-center justify-between cursor-pointer"
+            >
+              <div class="flex items-center" style="gap: 8px">
+                <span class="circle pink-background"></span>
+                <span class="status-text">To Do</span>
+              </div>
+              <iconify-icon
+                icon="material-symbols:arrow-back-ios-rounded"
+                class="arrow-icon"
+                width="18"
+                height="18"
+              ></iconify-icon>
+            </div>
+            <div id="status-dropdown" class="status-dropdown hide">
+              <label class="radio-label">
+                <input
+                  type="radio"
+                  name="status"
+                  value="to-do"
+                  class="radio-input"
+                  checked
+                />
+                <span class="circle pink-background"></span>
+                <span>To Do</span>
+              </label>
+              <label class="radio-label">
+                <input
+                  type="radio"
+                  name="status"
+                  value="doing"
+                  class="radio-input"
+                />
+                <span class="circle blue-background"></span>
+                <span>Doing</span>
+              </label>
+              <label class="radio-label">
+                <input
+                  type="radio"
+                  name="status"
+                  value="done"
+                  class="radio-input"
+                />
+                <span class="circle green-background"></span>
+                <span>Done</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button
+              type="submit"
+              class="button regular-button green-background"
+              style="margin-top: 32px"
+            >
+              Save task
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- View Task Overlay -->
+    <div id="view-task-overlay" class="overlay view-task-overlay hide">
+      <div class="overlay-content green-background">
+        <button
+          class="button circle-button blue-background flex justify-center items-center close-button"
+        >
+          <iconify-icon
+            icon="material-symbols:close-rounded"
+            width="26"
+            height="26"
+          ></iconify-icon>
+        </button>
+        <h1 class="header no-margin">Name</h1>
+        <p class="value task-name-value">Task name here</p>
+
+        <h1 class="header">Description</h1>
+        <p class="value task-description-value">Task description here</p>
+
+        <div class="flex items-center">
+          <h1 class="header min-width">Due date</h1>
+          <p class="value task-date-value">January 7, 2025</p>
+        </div>
+
+        <div class="flex items-center">
+          <h1 class="header min-width">Category</h1>
+          <p class="value task-category-value">College</p>
+        </div>
+
+        <div class="flex items-center">
+          <h1 class="header min-width">Status</h1>
+          <p class="value status-value">
+            <span class="circle blue-background"></span><span>Doing</span>
+          </p>
+        </div>
+
+        <div class="control-buttons-container">
+          <button
+            id="edit-task-cta"
+            class="button circle-button pink-background flex justify-center items-center"
+          >
+            <iconify-icon
+              icon="material-symbols:edit-rounded"
+              width="24"
+              height="24"
+            ></iconify-icon>
           </button>
-          <button class="sign-out-cta"><a href="login.html">Sign out</a></button>
-        </div>
-      </div>
-    </div>
-    <!-- radio buttons -->
-    <div class="radio-buttons-container">
-      <div class="max-width-container flex">
-        <!-- List -->
-        <div class="radio-container">
-          <input type="radio" id="list" name="view-option" value="list" class="radio-input" checked />
-          <label for="list" class="radio-label">
-            <!-- list-bulleted -->
-            <iconify-icon icon="material-symbols:format-list-bulleted-rounded" style="color: black" width="24"
-              height="24"></iconify-icon>
-            <span>List</span>
-          </label>
-        </div>
-        <!-- Board -->
-        <div class="radio-container">
-          <input type="radio" id="board" name="view-option" value="board" class="radio-input" />
-          <label for="board" class="radio-label">
-            <!-- grid -->
-            <iconify-icon icon="ic:round-grid-view" style="color: black" width="24" height="24"></iconify-icon>
-            <span>Board</span>
-          </label>
-        </div>
-        <!-- Contact -->
-        <div class="radio-container">
-          <input type="radio" id="contact" name="view-option" value="contact" class="radio-input" />
-          <label for="contact" class="radio-label">
-            <!-- grid -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
-              <path fill="currentColor"
-                d="M18.75 4A3.25 3.25 0 0 1 22 7.25v9.505a3.25 3.25 0 0 1-3.25 3.25H5.25A3.25 3.25 0 0 1 2 16.755V7.25a3.25 3.25 0 0 1 3.066-3.245L5.25 4zm-9.497 8.5H5.75a.75.75 0 0 0-.743.648L5 13.25v.581c0 1.273.968 1.919 2.501 1.919c1.466 0 2.416-.59 2.496-1.755l.006-.163v-.582a.75.75 0 0 0-.649-.743zm2.997 0l-1.416-.001q.13.275.161.591l.008.16v.582l-.01.254a2.9 2.9 0 0 1-.205.899q.162.015.337.015c1.052 0 1.793-.407 1.869-1.27l.006-.147v-.333a.75.75 0 0 0-.648-.743zl-1.416-.001zm6 0h-3l-.102.007a.75.75 0 0 0 0 1.486l.102.007h3l.102-.007a.75.75 0 0 0 0-1.486zM7.5 8.5a1.5 1.5 0 1 0 0 3.001a1.5 1.5 0 0 0 0-3.001m3.87.502a1.248 1.248 0 1 0 0 2.496a1.248 1.248 0 0 0 0-2.496m6.88.498h-3l-.102.007a.75.75 0 0 0 0 1.486l.102.007h3l.102-.007a.75.75 0 0 0 0-1.486z" />
-            </svg>
-            <span>Contact</span>
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <!-- Page 1 -->
-    <!-- tasks -->
-    <div class="max-width-container">
-      <!-- list view -->
-      <div id="list-view" class="list-view">
-        <!-- 1st Container -->
-        <div class="list-container pink">
-          <h2 class="list-header">
-            <span class="circle pink-background"></span><span class="text">To DO</span>
-          </h2>
-          <!-- Tasks -->
-          <ul class="tasks-list">
-            <li class="task-item">
-              <button class="task-button">
-                <p class="task-name">Learn new skill</p>
-                <p class="task-due-date">Due on December 7, 2026</p>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-            <li class="task-item">
-              <button class="task-button">
-                <p class="task-name">Attend an online webinar or workshop</p>
-                <p class="task-due-date">Due on Weekend</p>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-            <li class="task-item">
-              <button class="task-button">
-                <p class="task-name">Practice typing and coding (30 min)</p>
-                <p class="task-due-date">Daily</p>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-          </ul>
-        </div>
-        <!-- 2st Container -->
-        <div class="list-container blue">
-          <h2 class="list-header">
-            <span class="circle blue-background"></span><span class="text">Doing</span>
-          </h2>
-          <!-- Tasks -->
-          <ul class="tasks-list">
-            <li class="task-item">
-              <button class="task-button">
-                <p class="task-name">DBMS - Assignment 5</p>
-                <p class="task-due-date">Due on October 20, 2020</p>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-            <li class="task-item">
-              <button class="task-button">
-                <p class="task-name">C++ - Assignment 3</p>
-                <p class="task-due-date">Due on October 15, 2020</p>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-            <li class="task-item">
-              <button class="task-button">
-                <p class="task-name">Project</p>
-                <p class="task-due-date">Due on December 14, 2020</p>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-          </ul>
-        </div>
-        <!-- 3st Container -->
-        <div class="list-container green">
-          <h2 class="list-header">
-            <span class="circle green-background"></span><span class="text">Done</span>
-          </h2>
-          <!-- Tasks -->
-          <ul class="tasks-list">
-            <li class="task-item">
-              <button class="task-button">
-                <p class="task-name">Solve 5 extra Questions beyond Homework</p>
-                <p class="task-due-date">Daily</p>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-            <li class="task-item">
-              <button class="task-button">
-                <p class="task-name">Read Books for 1 Hour</p>
-                <p class="task-due-date">Daily</p>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-            <li class="task-item">
-              <button class="task-button">
-                <p class="task-name">Work on Communication Skill</p>
-                <p class="task-due-date">Daily</p>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <!-- board view -->
-      <div id="board-view" class="board-view hide">
-        <!-- list -->
-        <div>
-          <h2 class="list-header">
-            <span class="circle pink-background"></span><span class="text">College</span>
-          </h2>
-          <ul class="tasks-list pink">
-            <li class="task-item">
-              <button class="task-button">
-                <div>
-                  <p class="task-name">DBMS - Assignment 5</p>
-                  <p class="task-due-date">Due on December 7, 2026</p>
-                </div>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-            <li class="task-item">
-              <button class="task-button">
-                <div>
-                  <p class="task-name">Submission</p>
-                  <p class="task-due-date">Due on November 25, 2025</p>
-                </div>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-            <li class="task-item">
-              <button class="task-button">
-                <div>
-                  <p class="task-name">Lab Manual</p>
-                  <p class="task-due-date">Due on November 25, 2025</p>
-                </div>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-            <li class="task-item">
-              <button class="task-button">
-                <div>
-                  <p class="task-name">Semester Project Discussion</p>
-                  <p class="task-due-date">Due on October 7, 2025</p>
-                </div>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-          </ul>
-        </div>
-        <!-- list -->
-        <div>
-          <h2 class="list-header">
-            <span class="circle blue-background"></span><span class="text">Student Extra Activity</span>
-          </h2>
-          <ul class="tasks-list blue">
-            <li class="task-item">
-              <button class="task-button">
-                <div>
-                  <p class="task-name">Research Project on climate Change</p>
-                  <p class="task-due-date">Due on December 31, 2025</p>
-                </div>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-            <li class="task-item">
-              <button class="task-button">
-                <div>
-                  <p class="task-name">Mini Sport Event</p>
-                  <p class="task-due-date">Due on November 24, 2020</p>
-                </div>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-            <li class="task-item">
-              <button class="task-button">
-                <div>
-                  <p class="task-name">Present your dream carrier</p>
-                  <p class="task-due-date">Due on Augest 18, 2025</p>
-                </div>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-            <li class="task-item">
-              <button class="task-button">
-                <div>
-                  <p class="task-name">Plan Culture Event</p>
-                  <p class="task-due-date">Due on February 2, 2025</p>
-                </div>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-            <li class="task-item">
-              <button class="task-button">
-                <div>
-                  <p class="task-name">Join Hackthon</p>
-                  <p class="task-due-date">Due on March 2, 2025</p>
-                </div>
-                <!-- arrow -->
-                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Page 2 -->
-      <!-- Contact -->
-      <div id="contact-view" class="contact-view hide">
-        <div class="contact-container pink">
-          <div class="contact-header">
-            <h2 class="text">Contact</h2>
-          </div>
-          <div class="contact-main">
-
-            <div class="contact-name">
-              <label for="uname">Name</label>
-              <input type="text" name="uname" id="uname" placeholder="John">
-            </div>
-
-            <div class="contact-email">
-              <label for="email">Email</label>
-              <input type="email" name="email" id="email" placeholder="example@xyz.com">
-            </div>
-
-            <div class="contact-msg">
-              <label for="message">Message</label>
-              <textarea name="message" id="message" placeholder="Enter your message here...."></textarea>
-            </div>
-            <button type="submit" class="contact-btn button pink-background regular-button">Submit</button>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- add + update task -->
-  <div id="set-task-overlay" class="overlay set-task-overlay hide">
-    <div class="overlay-content pink-background">
-      <!-- close button -->
-      <button class="button circle-button blue-background flex justify-center items-center close-button">
-        <iconify-icon icon="material-symbols:close-rounded" style="color: black" width="26" height="26"></iconify-icon>
-      </button>
-      <h1 class="header">Add task</h1>
-      <form class="form" autocomplete="off">
-        <label for="name" class="label">Name</label>
-        <input type="text" name="name" id="name" class="input white-background" required />
-        <label for="description" class="label">Description</label>
-        <textarea name="description" id="description" rows="8" class="textarea-input white-background"
-          required></textarea>
-        <label for="date" class="label">Date</label>
-        <input type="text" name="date" id="date" class="input white-background" required />
-        <!-- <h2 class="label">Due date</h2>
-        <div class="divided-inputs-container">
-          <div>
-            <label for="due-date-day" class="secondary-label">Day</label>
-            <input type="number" min="01" max="31" name="due-date-day" id="due-date-day" class="input white-background" required />
-          </div>
-          <div>
-            <label for="due-date-month" class="secondary-label">Month</label>
-            <input type="number" min="01" max="12" name="due-date-month" id="due-date-month" class="input white-background" required />
-          </div>
-          <div>
-            <label for="due-date-year" class="secondary-label">Year</label>
-            <input type="number"  min="2025" max="****" name="due-date-year" id="due-date-year" class="input white-background" required />
-          </div>
-        </div> -->
-        <!-- Status option -->
-        <h2 class="label">Status</h2>
-        <select name="status" id="status-option" class="status-select white-background flex items-center justify-between cursor-pointer ">
-          <option value="to-do" class="status-dropdown white-background">To-Do</option>
-          <option value="to-do" class="status-dropdown white-background">Doing</option>
-          <option value="to-do" class="status-dropdown white-background">Done</option>
-        </select>
-        <div class="text-center">
-          <button type="submit" class="button regular-button green-background cta-button">
-            Add task
+          <button
+            id="delete-task-cta"
+            class="button circle-button pink-background flex justify-center items-center"
+          >
+            <iconify-icon
+              icon="ic:round-delete"
+              width="24"
+              height="24"
+            ></iconify-icon>
           </button>
         </div>
-      </form>
-    </div>
-  </div>
-
-
-  <!-- view task while click on  -->
-  <!-- <div id="view-task-overlay" class="overlay view-task-overlay hide">
-    <div class="overlay-content green-background">
-      close button
-      <button class="button circle-button blue-background flex justify-center items-center close-button">
-        <iconify-icon icon="material-symbols:close-rounded" style="color: black" width="26" height="26"></iconify-icon>
-      </button>
-      <h1 class="header no-margin">Name</h1>
-      <p class="value">some long task name</p>
-      <h1 class="header">Description</h1>
-      <p class="value">
-        some long task namesome long task namesome long task name
-      </p>
-      <div class="flex items-center">
-        <h1 class="header min-width">Due date</h1>
-        <p class="value">January 7, 2020</p>
-      </div>
-      <div class="flex items-center">
-        <h1 class="header min-width">Status</h1>
-        <p class="value status-value">
-          <span class="circle blue-background"></span><span>Doing</span>
-        </p>
-      </div>
-      <div class="control-buttons-container">
-        edit button
-        <button class="button circle-button pink-background flex justify-center items-center">
-          <iconify-icon icon="material-symbols:edit-rounded" style="color: black" width="24" height="24"></iconify-icon>
-        </button>
-        delete button
-        <button id="delete-task-cta" class="button circle-button pink-background flex justify-center items-center">
-          <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24"></iconify-icon>
-        </button>
       </div>
     </div>
-  </div> -->
-  <!-- import IconifyIcon web component -->
-  <script src="https://code.iconify.design/iconify-icon/1.0.5/iconify-icon.min.js"></script>
-  <!-- js -->
-  <script src="../js/main.js"></script>
-  <script src="../js/dashboard-auth.js"></script>
-</body>
 
+    <script src="https://code.iconify.design/iconify-icon/1.0.5/iconify-icon.min.js"></script>
+    <script>
+      // Enhanced Dashboard Main JavaScript
+      const radioViewOptions = document.querySelectorAll(
+        "input[name='view-option']"
+      );
+      const listView = document.getElementById("list-view");
+      const boardView = document.getElementById("board-view");
+      const addTaskCTA = document.getElementById("add-task-cta");
+      const setTaskOverlay = document.getElementById("set-task-overlay");
+      const viewTaskOverlay = document.getElementById("view-task-overlay");
+      const closeButtons = document.querySelectorAll(".close-button");
+      const statusSelect = document.getElementById("status-select");
+      const statusDropdown = document.getElementById("status-dropdown");
+      const deleteTaskCTA = document.getElementById("delete-task-cta");
+      const editTaskCTA = document.getElementById("edit-task-cta");
+      const notification = document.getElementById("notification");
+
+      let activeOverlay = null;
+      let currentEditingTask = null;
+
+      function getCurrentUser() {
+        return JSON.parse(
+          sessionStorage.getItem("taskforge_current_user") || "null"
+        );
+      }
+
+      function getUserTasks() {
+        const user = getCurrentUser();
+        if (!user) return [];
+        return JSON.parse(
+          sessionStorage.getItem(`taskforge_tasks_${user.id}`) || "[]"
+        );
+      }
+
+      function saveUserTasks(tasks) {
+        const user = getCurrentUser();
+        if (!user) return;
+        sessionStorage.setItem(
+          `taskforge_tasks_${user.id}`,
+          JSON.stringify(tasks)
+        );
+      }
+
+      function showNotification(message, bgColor = "green-background") {
+        notification.innerHTML = `
+        <iconify-icon icon="mdi:check-circle-outline" style="color: black" width="24" height="24"></iconify-icon>
+        <p>${message}</p>
+      `;
+        notification.className = `notification ${bgColor}`;
+        notification.classList.add("show");
+        setTimeout(() => notification.classList.remove("show"), 3000);
+      }
+
+      function formatDate(dateStr) {
+        const date = new Date(dateStr);
+        return date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      }
+
+      function renderTasks() {
+        const tasks = getUserTasks();
+
+        document
+          .querySelectorAll(".tasks-list")
+          .forEach((list) => (list.innerHTML = ""));
+
+        const tasksByStatus = {
+          "to-do": tasks.filter((t) => t.status === "to-do"),
+          doing: tasks.filter((t) => t.status === "doing"),
+          done: tasks.filter((t) => t.status === "done"),
+        };
+
+        const tasksByCategory = {
+          college: tasks.filter((t) => t.category === "college"),
+          "extra-activity": tasks.filter(
+            (t) => t.category === "extra-activity"
+          ),
+        };
+
+        renderListView(tasksByStatus);
+        renderBoardView(tasksByCategory);
+      }
+
+      function renderListView(tasksByStatus) {
+        const containers = [
+          {
+            status: "to-do",
+            el: document.querySelector(
+              "#list-view .list-container.pink .tasks-list"
+            ),
+          },
+          {
+            status: "doing",
+            el: document.querySelector(
+              "#list-view .list-container.blue .tasks-list"
+            ),
+          },
+          {
+            status: "done",
+            el: document.querySelector(
+              "#list-view .list-container.green .tasks-list"
+            ),
+          },
+        ];
+
+        containers.forEach(({ status, el }) => {
+          if (!el) return;
+          tasksByStatus[status].forEach((task) => {
+            const li = document.createElement("li");
+            li.className = "task-item fade-in";
+            li.innerHTML = `
+            <button class="task-button" data-task-id="${task.id}">
+              <p class="task-name">${task.name}</p>
+              <p class="task-due-date">${formatDate(task.dueDate)}</p>
+              <iconify-icon icon="material-symbols:arrow-back-ios-rounded" width="18" height="18" class="arrow-icon"></iconify-icon>
+            </button>
+          `;
+            el.appendChild(li);
+          });
+        });
+
+        attachTaskClickListeners();
+      }
+
+      function renderBoardView(tasksByCategory) {
+        const containers = [
+          {
+            cat: "college",
+            el: document.querySelector(
+              "#board-view > div:nth-child(1) .tasks-list"
+            ),
+          },
+          {
+            cat: "extra-activity",
+            el: document.querySelector(
+              "#board-view > div:nth-child(2) .tasks-list"
+            ),
+          },
+        ];
+
+        containers.forEach(({ cat, el }) => {
+          if (!el) return;
+          tasksByCategory[cat].forEach((task) => {
+            const li = document.createElement("li");
+            li.className = "task-item fade-in";
+            const shadow =
+              task.status === "doing"
+                ? "blue"
+                : task.status === "done"
+                ? "green"
+                : "pink";
+            li.style.boxShadow = `6px 6px 0px var(--${shadow})`;
+            li.innerHTML = `
+            <button class="task-button" data-task-id="${task.id}">
+              <div>
+                <p class="task-name">${task.name}</p>
+                <p class="task-due-date">${formatDate(task.dueDate)}</p>
+              </div>
+              <iconify-icon icon="material-symbols:arrow-back-ios-rounded" width="18" height="18" class="arrow-icon"></iconify-icon>
+            </button>
+          `;
+            el.appendChild(li);
+          });
+        });
+
+        attachTaskClickListeners();
+      }
+
+      function attachTaskClickListeners() {
+        document.querySelectorAll(".task-button").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            openTaskDetails(parseInt(this.getAttribute("data-task-id")));
+          });
+        });
+      }
+
+      function openTaskDetails(taskId) {
+        const task = getUserTasks().find((t) => t.id === taskId);
+        if (!task) return;
+
+        currentEditingTask = task;
+        document.querySelector(
+          "#view-task-overlay .task-name-value"
+        ).textContent = task.name;
+        document.querySelector(
+          "#view-task-overlay .task-description-value"
+        ).textContent = task.description;
+        document.querySelector(
+          "#view-task-overlay .task-date-value"
+        ).textContent = formatDate(task.dueDate);
+        document.querySelector(
+          "#view-task-overlay .task-category-value"
+        ).textContent =
+          task.category === "college" ? "College" : "Student Extra Activity";
+
+        const statusText =
+          task.status === "to-do"
+            ? "To Do"
+            : task.status === "doing"
+            ? "Doing"
+            : "Done";
+        const statusColor =
+          task.status === "to-do"
+            ? "pink"
+            : task.status === "doing"
+            ? "blue"
+            : "green";
+        document.querySelector("#view-task-overlay .status-value").innerHTML = `
+        <span class="circle ${statusColor}-background"></span><span>${statusText}</span>
+      `;
+
+        viewTaskOverlay.classList.remove("hide");
+        activeOverlay = viewTaskOverlay;
+        document.body.classList.add("overflow-hidden");
+      }
+
+      radioViewOptions.forEach((radio) => {
+        radio.addEventListener("change", (e) => {
+          listView.classList.toggle("hide", e.target.value !== "list");
+          boardView.classList.toggle("hide", e.target.value !== "board");
+        });
+      });
+
+      addTaskCTA.addEventListener("click", () => {
+        document.getElementById("overlay-title").textContent = "Add task";
+        document.getElementById("task-form").reset();
+        document.querySelector("#status-select .status-text").textContent =
+          "To Do";
+        currentEditingTask = null;
+        setTaskOverlay.classList.remove("hide");
+        activeOverlay = setTaskOverlay;
+        document.body.classList.add("overflow-hidden");
+      });
+
+      closeButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (activeOverlay) {
+            activeOverlay.classList.add("hide");
+            activeOverlay = null;
+            document.body.classList.remove("overflow-hidden");
+          }
+        });
+      });
+
+      statusSelect.addEventListener("click", () =>
+        statusDropdown.classList.toggle("hide")
+      );
+
+      document
+        .querySelectorAll('#status-dropdown input[name="status"]')
+        .forEach((radio) => {
+          radio.addEventListener("change", (e) => {
+            const labels = { "to-do": "To Do", doing: "Doing", done: "Done" };
+            document.querySelector("#status-select .status-text").textContent =
+              labels[e.target.value];
+            const colors = { "to-do": "pink", doing: "blue", done: "green" };
+            document.querySelector(
+              "#status-select .circle"
+            ).className = `circle ${colors[e.target.value]}-background`;
+            statusDropdown.classList.add("hide");
+          });
+        });
+
+      editTaskCTA.addEventListener("click", () => {
+        if (!currentEditingTask) return;
+        document.getElementById("name").value = currentEditingTask.name;
+        document.getElementById("description").value =
+          currentEditingTask.description;
+        document.getElementById("date").value = currentEditingTask.dueDate;
+        document.getElementById("category").value = currentEditingTask.category;
+        document.querySelector(
+          `#status-dropdown input[value="${currentEditingTask.status}"]`
+        ).checked = true;
+
+        const labels = { "to-do": "To Do", doing: "Doing", done: "Done" };
+        const colors = { "to-do": "pink", doing: "blue", done: "green" };
+        document.querySelector("#status-select .status-text").textContent =
+          labels[currentEditingTask.status];
+        document.querySelector("#status-select .circle").className = `circle ${
+          colors[currentEditingTask.status]
+        }-background`;
+
+        document.getElementById("overlay-title").textContent = "Edit task";
+        viewTaskOverlay.classList.add("hide");
+        setTaskOverlay.classList.remove("hide");
+        activeOverlay = setTaskOverlay;
+      });
+
+      deleteTaskCTA.addEventListener("click", () => {
+        if (
+          !currentEditingTask ||
+          !confirm("Are you sure you want to delete this task?")
+        )
+          return;
+        const tasks = getUserTasks().filter(
+          (t) => t.id !== currentEditingTask.id
+        );
+        saveUserTasks(tasks);
+        viewTaskOverlay.classList.add("hide");
+        activeOverlay = null;
+        document.body.classList.remove("overflow-hidden");
+        showNotification("The task was deleted", "green-background");
+        renderTasks();
+      });
+
+      document.getElementById("task-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("name").value.trim();
+        const description = document.getElementById("description").value.trim();
+        const date = document.getElementById("date").value;
+        const category = document.getElementById("category").value;
+        const status = document.querySelector(
+          '#status-dropdown input[name="status"]:checked'
+        ).value;
+
+        if (!name || !description || !date || !category) {
+          alert("Please fill in all fields");
+          return;
+        }
+
+        const tasks = getUserTasks();
+        if (currentEditingTask) {
+          const idx = tasks.findIndex((t) => t.id === currentEditingTask.id);
+          if (idx !== -1) {
+            tasks[idx] = {
+              ...tasks[idx],
+              name,
+              description,
+              dueDate: date,
+              category,
+              status,
+              updatedAt: new Date().toISOString(),
+            };
+            showNotification("Task updated successfully!", "blue-background");
+          }
+        } else {
+          tasks.push({
+            id: Date.now(),
+            name,
+            description,
+            dueDate: date,
+            category,
+            status,
+            createdAt: new Date().toISOString(),
+            userId: getCurrentUser().id,
+          });
+          showNotification("Task added successfully!", "blue-background");
+        }
+
+        saveUserTasks(tasks);
+        renderTasks();
+        setTaskOverlay.classList.add("hide");
+        activeOverlay = null;
+        document.body.classList.remove("overflow-hidden");
+        currentEditingTask = null;
+      });
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const user = getCurrentUser();
+        if (!user) {
+          window.location.href = "login.html";
+          return;
+        }
+        const titleEl = document.querySelector(".header .title");
+        if (titleEl && user.name) {
+          const firstName = user.name.split(" ")[0];
+          titleEl.innerHTML = `Welcome, ${firstName}! <span>Task</span><span style="color: var(--pink)">Forge</span>`;
+        }
+        renderTasks();
+      });
+
+      document.querySelector(".sign-out-cta").addEventListener("click", (e) => {
+        e.preventDefault();
+        if (confirm("Are you sure you want to sign out?")) {
+          sessionStorage.removeItem("taskforge_current_user");
+          window.location.href = "login.html";
+        }
+      });
+    </script>
+  </body>
 </html>

@@ -2,9 +2,41 @@ body.overflow-hidden {
   /* disable scrolling only when overlay is open */
   overflow: hidden;
 }
+.hide {
+  display: none !important;
+}
 
 .content-container {
   padding-block: var(--space-32);
+}
+
+.input,
+.textarea-input,
+.status-select {
+  border: 2px solid var(--black);
+  border-radius: var(--radius-8);
+  width: 100%;
+  padding: var(--space-16);
+  margin-top: var(--space-16);
+  transition: border-color 0.2s;
+}
+.input:focus,
+.textarea-input:focus {
+  border-color: var(--pink);
+}
+
+/* Buttons */
+.button {
+  border: 2px solid var(--black);
+  box-shadow: var(--black-shadow);
+  border-radius: var(--radius-8);
+  transition: transform 0.2s;
+}
+.button:hover {
+  transform: translateY(-2px);
+}
+.button:active {
+  transform: translateY(0);
 }
 
 /* header */
@@ -20,6 +52,7 @@ body.overflow-hidden {
 .header .buttons-container {
   display: flex;
   gap: var(--space-16);
+  flex-wrap: wrap;
 }
 
 .header .sign-out-cta {
@@ -51,6 +84,7 @@ body.overflow-hidden {
   font-size: var(--font-size-14);
   padding-block: var(--space-16);
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .radio-input {
@@ -66,6 +100,9 @@ body.overflow-hidden {
 }
 
 /* lists view */
+.list-view {
+  margin-top: var(--space-32);
+}
 .list-view.hide {
   display: none;
 }
@@ -75,6 +112,7 @@ body.overflow-hidden {
   background-color: var(--white);
   border: 2px solid var(--black);
   border-radius: var(--radius-8);
+  animation: slideIn 0.3s ease;
 }
 
 .list-view .list-container.pink {
@@ -112,6 +150,10 @@ body.overflow-hidden {
 .task-item .task-button {
   width: 100%;
   text-align: left;
+  transition: background-color 0.2s;
+}
+.task-item .task-button:hover {
+  background-color: var(--beige);
 }
 
 .list-view .task-item .task-button {
@@ -195,6 +237,7 @@ body.overflow-hidden {
   background-color: var(--white);
   border: 2px solid var(--black);
   border-radius: var(--radius-8);
+  animation: fadeIn 0.3s ease;
 }
 
 .board-view .tasks-list.pink .task-item {
@@ -230,6 +273,7 @@ body.overflow-hidden {
   place-items: center;
   /* if content is longer than screen height, enable scrollbar */
   overflow-y: auto;
+  animation: fadeIn 0.3s ease;
 }
 
 .overlay.hide {
@@ -243,6 +287,7 @@ body.overflow-hidden {
   max-width: 654px;
   /* to position close button */
   position: relative;
+  animation: slideUp 0.3s ease;
 }
 
 .overlay-content .close-button {
@@ -312,12 +357,15 @@ body.overflow-hidden {
   max-width: 375px;
   transition-property: top;
   transition-duration: 0.5s;
+  border: 2px solid var(--black);
+  border-radius: var(--radius-8);
+  box-shadow: var(--black-shadow);
+  z-index: 2000;
 }
 
 .notification.show {
-  top: 0;
+  top: var(--space-16);
 }
-
 
 .contact-view.hide {
   display: none;
@@ -329,16 +377,16 @@ body.overflow-hidden {
 
 .contact-view .contact-container {
   margin-top: var(--space-32);
-    background-color: var(--white);
-    border: 2px solid var(--black);
-    border-radius: var(--radius-8);
-    padding: var(--space-24) var(--space-16);
+  background-color: var(--white);
+  border: 2px solid var(--black);
+  border-radius: var(--radius-8);
+  padding: var(--space-24) var(--space-16);
 }
 
 .contact-view .contact-header .text {
-      font-weight: 600;
-    font-size: 32px;
-    text-align: center;
+  font-weight: 600;
+  font-size: 32px;
+  text-align: center;
 }
 
 .contact-view .contact-main {
@@ -349,19 +397,19 @@ body.overflow-hidden {
 
 .contact-view .contact-main label {
   display: block;
-    font-size: 22px;
-    line-height: 1.6;
+  font-size: 22px;
+  line-height: 1.6;
 }
 
 .contact-view .contact-main input {
   width: 100%;
   min-height: 30px;
-    font-weight: 400;
-    font-size: 17px;
-    line-height: 1.6;
-    border-radius: 8px;
-    padding: .4em .5em;
-        box-shadow: 0px 0px 0px -7px rgba(0, 0, 0, 0);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.6;
+  border-radius: 8px;
+  padding: 0.4em 0.5em;
+  box-shadow: 0px 0px 0px -7px rgba(0, 0, 0, 0);
 }
 
 .contact-view .contact-main textarea {
@@ -369,26 +417,24 @@ body.overflow-hidden {
   width: 100%;
   height: 200px;
   overflow: auto;
-    border-radius: 8px;
-  padding: .4em .5em;
-      box-shadow: 0px 0px 0px -7px rgba(0, 0, 0, 0);
-      
-    font-weight: 400;
-    font-size: 17px;
-    line-height: 1.6;
-    border: 2px solid rgba(0, 0, 0);
+  border-radius: 8px;
+  padding: 0.4em 0.5em;
+  box-shadow: 0px 0px 0px -7px rgba(0, 0, 0, 0);
+
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.6;
+  border: 2px solid rgba(0, 0, 0);
 }
 
 .contact-view .contact-main .contact-btn {
-  
-    width: 19%;
-    font-weight: 900;
+  width: 19%;
+  font-weight: 900;
   font-weight: 600;
   padding-inline: var(--space-16);
-    height: 50px;
-    font-size: 18px;
+  height: 50px;
+  font-size: 18px;
 }
-
 
 /* media queries */
 @media (min-width: 768px) {
@@ -419,5 +465,44 @@ body.overflow-hidden {
   .board-view {
     grid-template-columns: repeat(2, minmax(266px, 1fr));
     gap: var(--space-24);
+  }
+}
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .board-view {
+    grid-template-columns: repeat(2, minmax(266px, 1fr));
   }
 }
