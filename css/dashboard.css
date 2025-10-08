@@ -285,14 +285,17 @@ body.overflow-hidden {
   border-radius: var(--radius-8);
   padding: var(--space-32);
   max-width: 654px;
-  /* width: 66%; */
+  width: 66%;
   /* to position close button */
   position: relative;
   animation: slideUp 0.3s ease;
-  /* display: flex;
-  flex-direction: column;
+  /* 
   align-content: center;
   flex-wrap: wrap; */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 .overlay-content .close-button {
@@ -311,7 +314,12 @@ body.overflow-hidden {
 .view-task-overlay .header {
   font-weight: 600;
   font-size: var(--font-size-16);
-  margin-top: var(--space-16);
+  /* margin-top: var(--space-16); */
+}
+
+.overlay-content > div {
+  flex-wrap: wrap;
+  gap: 2px;
 }
 
 .view-task-overlay .header.no-margin {
@@ -323,7 +331,7 @@ body.overflow-hidden {
 }
 
 .view-task-overlay .value {
-  margin-top: var(--space-16);
+  /* margin-top: var(--space-16); */
   line-height: 26px;
 }
 
@@ -340,6 +348,7 @@ body.overflow-hidden {
 
 .view-task-overlay .control-buttons-container {
   display: flex;
+  justify-content: space-around;
   gap: var(--space-16);
   margin-top: var(--space-32);
 }

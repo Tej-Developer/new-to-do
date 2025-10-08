@@ -333,7 +333,7 @@ document.getElementById("task-form").addEventListener("submit", (e) => {
                 status,
                 updatedAt: new Date().toISOString(),
             };
-            showNotification("Task updated successfully!", "blue-background");
+            showNotification("Task updated successfully!", "green-background");
         }
     } else {
         tasks.push({
@@ -346,7 +346,7 @@ document.getElementById("task-form").addEventListener("submit", (e) => {
             createdAt: new Date().toISOString(),
             userId: getCurrentUser().id,
         });
-        showNotification("Task added successfully!", "blue-background");
+        showNotification("Task added successfully!", "green-background");
     }
 
     saveUserTasks(tasks);
@@ -437,7 +437,7 @@ function loadSampleTasks() {
             userId: user.id,
         },
         {
-            id: Date.now() + 6,
+            id: Date.now() + 7,
             name: "Read book",
             description: "Read Chapter 4 of 'Atomic Habits'.",
             dueDate: "2025-09-05",

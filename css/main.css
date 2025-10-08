@@ -51,6 +51,7 @@ img {
   --green: #abe5bc;
   --beige: #fffaf0;
   --white: #fff;
+  --red: #e4534f;
 
   /* shadow */
   --green-shadow: 6px 6px 0px var(--green);
@@ -138,6 +139,11 @@ body {
 
 .green-background {
   background-color: var(--green);
+}
+
+.red-background {
+  background-color: var(--red);
+  color: var(--white);
 }
 
 /* shared style */

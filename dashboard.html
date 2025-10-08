@@ -16,8 +16,8 @@
 <body>
   <div class="content-container">
     <!-- Notification -->
-    <div id="notification" class="notification green-background">
-      <iconify-icon icon="mdi:check-circle-outline" style="color: black" width="24" height="24"></iconify-icon>
+    <div id="notification" class="notification red-background">
+      <iconify-icon icon="mdi:check-circle-outline" style="color: var(--white)" width="24" height="24"></iconify-icon>
       <p>The task was deleted</p>
     </div>
 
@@ -171,23 +171,27 @@
       <button class="button circle-button blue-background flex justify-center items-center close-button">
         <iconify-icon icon="material-symbols:close-rounded" width="26" height="26"></iconify-icon>
       </button>
-      <h1 class="header no-margin">Name</h1>
-      <p class="value task-name-value">Task name here</p>
+      <div class="flex items-center justify-between">
+        <h1 class="header no-margin">Name</h1>
+        <p class="value task-name-value">Task name here</p>
+      </div>
 
-      <h1 class="header">Description</h1>
-      <p class="value task-description-value">Task description here</p>
+      <div class="flex items-center justify-between">
+        <h1 class="header">Description</h1>
+        <p class="value task-description-value">Task description here</p>
+      </div>
 
-      <div class="flex items-center">
+      <div class="flex items-center justify-between">
         <h1 class="header min-width">Due date</h1>
         <p class="value task-date-value">January 7, 2025</p>
       </div>
 
-      <div class="flex items-center">
+      <div class="flex items-center justify-between">
         <h1 class="header min-width">Category</h1>
         <p class="value task-category-value">College</p>
       </div>
 
-      <div class="flex items-center">
+      <div class="flex items-center justify-between">
         <h1 class="header min-width">Status</h1>
         <p class="value status-value">
           <span class="circle blue-background"></span><span>Doing</span>
