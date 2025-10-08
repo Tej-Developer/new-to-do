@@ -357,12 +357,112 @@ document.getElementById("task-form").addEventListener("submit", (e) => {
     currentEditingTask = null;
 });
 
+// Sample Tasks
+function loadSampleTasks() {
+    const user = getCurrentUser();
+    if (!user) return;
+
+    const existingTasks = getUserTasks();
+    if (existingTasks.length > 0) return; // Don't override real user data
+
+    const sampleTasks = [
+        // {
+        //     id: Date.now() + 1,
+        //     name: "Learn New Skills",
+        //     description: "Learn a new skill",
+        //     dueDate: new Date().toISOString().split("T")[0],
+        //     category: "extra-activity",
+        //     status: "to-do",
+        //     createdAt: new Date().toISOString(),
+        //     userId: user.id,
+        // },
+        {
+            id: Date.now() + 1,
+            name: "Learn New Skills",
+            description: "Learn a new skill",
+            dueDate: "2025-12-07",
+            category: "extra-activity",
+            status: "to-do",
+            createdAt: new Date().toISOString(),
+            userId: user.id,
+        },
+        {
+            id: Date.now() + 2,
+            name: "DBMS - Assignment 5",
+            description: "Complete the Assignment of DBMS and submit before next Thursday",
+            dueDate: "2025-08-16",
+            category: "college",
+            status: "doing",
+            createdAt: new Date().toISOString(),
+            userId: user.id,
+        },
+        {
+            id: Date.now() + 3,
+            name: "C++ - Assignment 3",
+            description: "Complete the Assignment of C++ and submit before Tuesday",
+            dueDate: "2025-08-16",
+            category: "college",
+            status: "doing",
+            createdAt: new Date().toISOString(),
+            userId: user.id,
+        },
+        {
+            id: Date.now() + 4,
+            name: "DBMS - Assignment 5",
+            description: "Attend basketball practice at 5 PM.",
+            dueDate: new Date().toISOString().split("T")[0],
+            category: "college",
+            status: "doing",
+            createdAt: new Date().toISOString(),
+            userId: user.id,
+        },
+        {
+            id: Date.now() + 5,
+            name: "Mini Project",
+            description: "Create a Mini Project when learn something new",
+            dueDate: "2025-08-16",
+            category: "extra-activity",
+            status: "to-do",
+            createdAt: new Date().toISOString(),
+            userId: user.id,
+        },
+        {
+            id: Date.now() + 6,
+            name: "Solve 5 extra Questions beyond Homework",
+            description: "Solveing 5 extra Questions beyond Homework for practice and revision",
+            dueDate: "2025-08-16",
+            category: "extra-activity",
+            status: "to-do",
+            createdAt: new Date().toISOString(),
+            userId: user.id,
+        },
+        {
+            id: Date.now() + 6,
+            name: "Read book",
+            description: "Read Chapter 4 of 'Atomic Habits'.",
+            dueDate: "2025-09-05",
+            category: "extra-activity",
+            status: "done",
+            createdAt: new Date().toISOString(),
+            userId: user.id,
+        }
+    ];
+
+    saveUserTasks(sampleTasks);
+}
+
+// Load tasks, name
 window.addEventListener("DOMContentLoaded", () => {
     const user = getCurrentUser();
     if (!user) {
         window.location.href = "login.html";
         return;
     }
+    if (!sessionStorage.getItem("demo_tasks_loaded")) {
+        loadSampleTasks(); // Add sample/demo tasks
+        sessionStorage.setItem("demo_tasks_loaded", "true"); // Set flag so it doesn't run again
+    }
+
     const titleEl = document.querySelector(".header .title");
     if (titleEl && user.name) {
         const firstName = user.name.split(" ")[0];
@@ -371,6 +471,7 @@ window.addEventListener("DOMContentLoaded", () => {
     renderTasks();
 });
 
+// Sign out button
 document.querySelector(".sign-out-cta").addEventListener("click", (e) => {
     e.preventDefault();
     if (confirm("Are you sure you want to sign out?")) {
