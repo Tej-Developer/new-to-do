@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskForge</title>
+  <!-- google font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- main css -->
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+
+<body>
+  <!-- Because body has height 100%, we need a container to wrap the individual 
+    elements. The purpose is to add top & bottom padding -->
+  <div class="content-container">
+    <!-- delete success notification -->
+    <div id="notification" class="notification green-background">
+      <iconify-icon icon="mdi:check-circle-outline" style="color: black" width="24" height="24"></iconify-icon>
+      <p>The task was deleted</p>
+    </div>
+    <!-- header -->
+    <div class="max-width-container">
+      <div class="header flex items-center justify-between">
+        <h1 class="title">Task<span>Forge</span></h1>
+        <div class="buttons-container">
+          <button id="add-task-cta" class="button regular-button blue-background">
+            Add task
+          </button>
+          <button class="sign-out-cta"><a href="login.html">Sign out</a></button>
+        </div>
+      </div>
+    </div>
+    <!-- radio buttons -->
+    <div class="radio-buttons-container">
+      <div class="max-width-container flex">
+        <!-- List -->
+        <div class="radio-container">
+          <input type="radio" id="list" name="view-option" value="list" class="radio-input" checked />
+          <label for="list" class="radio-label">
+            <!-- list-bulleted -->
+            <iconify-icon icon="material-symbols:format-list-bulleted-rounded" style="color: black" width="24"
+              height="24"></iconify-icon>
+            <span>List</span>
+          </label>
+        </div>
+        <!-- Board -->
+        <div class="radio-container">
+          <input type="radio" id="board" name="view-option" value="board" class="radio-input" />
+          <label for="board" class="radio-label">
+            <!-- grid -->
+            <iconify-icon icon="ic:round-grid-view" style="color: black" width="24" height="24"></iconify-icon>
+            <span>Board</span>
+          </label>
+        </div>
+        <!-- Contact -->
+        <div class="radio-container">
+          <input type="radio" id="contact" name="view-option" value="contact" class="radio-input" />
+          <label for="contact" class="radio-label">
+            <!-- grid -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M18.75 4A3.25 3.25 0 0 1 22 7.25v9.505a3.25 3.25 0 0 1-3.25 3.25H5.25A3.25 3.25 0 0 1 2 16.755V7.25a3.25 3.25 0 0 1 3.066-3.245L5.25 4zm-9.497 8.5H5.75a.75.75 0 0 0-.743.648L5 13.25v.581c0 1.273.968 1.919 2.501 1.919c1.466 0 2.416-.59 2.496-1.755l.006-.163v-.582a.75.75 0 0 0-.649-.743zm2.997 0l-1.416-.001q.13.275.161.591l.008.16v.582l-.01.254a2.9 2.9 0 0 1-.205.899q.162.015.337.015c1.052 0 1.793-.407 1.869-1.27l.006-.147v-.333a.75.75 0 0 0-.648-.743zl-1.416-.001zm6 0h-3l-.102.007a.75.75 0 0 0 0 1.486l.102.007h3l.102-.007a.75.75 0 0 0 0-1.486zM7.5 8.5a1.5 1.5 0 1 0 0 3.001a1.5 1.5 0 0 0 0-3.001m3.87.502a1.248 1.248 0 1 0 0 2.496a1.248 1.248 0 0 0 0-2.496m6.88.498h-3l-.102.007a.75.75 0 0 0 0 1.486l.102.007h3l.102-.007a.75.75 0 0 0 0-1.486z" />
+            </svg>
+            <span>Contact</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 1 -->
+    <!-- tasks -->
+    <div class="max-width-container">
+      <!-- list view -->
+      <div id="list-view" class="list-view">
+        <!-- 1st Container -->
+        <div class="list-container pink">
+          <h2 class="list-header">
+            <span class="circle pink-background"></span><span class="text">To DO</span>
+          </h2>
+          <!-- Tasks -->
+          <ul class="tasks-list">
+            <li class="task-item">
+              <button class="task-button">
+                <p class="task-name">Learn new skill</p>
+                <p class="task-due-date">Due on December 7, 2026</p>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+            <li class="task-item">
+              <button class="task-button">
+                <p class="task-name">Attend an online webinar or workshop</p>
+                <p class="task-due-date">Due on Weekend</p>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+            <li class="task-item">
+              <button class="task-button">
+                <p class="task-name">Practice typing and coding (30 min)</p>
+                <p class="task-due-date">Daily</p>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <!-- 2st Container -->
+        <div class="list-container blue">
+          <h2 class="list-header">
+            <span class="circle blue-background"></span><span class="text">Doing</span>
+          </h2>
+          <!-- Tasks -->
+          <ul class="tasks-list">
+            <li class="task-item">
+              <button class="task-button">
+                <p class="task-name">DBMS - Assignment 5</p>
+                <p class="task-due-date">Due on October 20, 2020</p>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+            <li class="task-item">
+              <button class="task-button">
+                <p class="task-name">C++ - Assignment 3</p>
+                <p class="task-due-date">Due on October 15, 2020</p>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+            <li class="task-item">
+              <button class="task-button">
+                <p class="task-name">Project</p>
+                <p class="task-due-date">Due on December 14, 2020</p>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <!-- 3st Container -->
+        <div class="list-container green">
+          <h2 class="list-header">
+            <span class="circle green-background"></span><span class="text">Done</span>
+          </h2>
+          <!-- Tasks -->
+          <ul class="tasks-list">
+            <li class="task-item">
+              <button class="task-button">
+                <p class="task-name">Solve 5 extra Questions beyond Homework</p>
+                <p class="task-due-date">Daily</p>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+            <li class="task-item">
+              <button class="task-button">
+                <p class="task-name">Read Books for 1 Hour</p>
+                <p class="task-due-date">Daily</p>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+            <li class="task-item">
+              <button class="task-button">
+                <p class="task-name">Work on Communication Skill</p>
+                <p class="task-due-date">Daily</p>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- board view -->
+      <div id="board-view" class="board-view hide">
+        <!-- list -->
+        <div>
+          <h2 class="list-header">
+            <span class="circle pink-background"></span><span class="text">College</span>
+          </h2>
+          <ul class="tasks-list pink">
+            <li class="task-item">
+              <button class="task-button">
+                <div>
+                  <p class="task-name">DBMS - Assignment 5</p>
+                  <p class="task-due-date">Due on December 7, 2026</p>
+                </div>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+            <li class="task-item">
+              <button class="task-button">
+                <div>
+                  <p class="task-name">Submission</p>
+                  <p class="task-due-date">Due on November 25, 2025</p>
+                </div>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+            <li class="task-item">
+              <button class="task-button">
+                <div>
+                  <p class="task-name">Lab Manual</p>
+                  <p class="task-due-date">Due on November 25, 2025</p>
+                </div>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+            <li class="task-item">
+              <button class="task-button">
+                <div>
+                  <p class="task-name">Semester Project Discussion</p>
+                  <p class="task-due-date">Due on October 7, 2025</p>
+                </div>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <!-- list -->
+        <div>
+          <h2 class="list-header">
+            <span class="circle blue-background"></span><span class="text">Student Extra Activity</span>
+          </h2>
+          <ul class="tasks-list blue">
+            <li class="task-item">
+              <button class="task-button">
+                <div>
+                  <p class="task-name">Research Project on climate Change</p>
+                  <p class="task-due-date">Due on December 31, 2025</p>
+                </div>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+            <li class="task-item">
+              <button class="task-button">
+                <div>
+                  <p class="task-name">Mini Sport Event</p>
+                  <p class="task-due-date">Due on November 24, 2020</p>
+                </div>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+            <li class="task-item">
+              <button class="task-button">
+                <div>
+                  <p class="task-name">Present your dream carrier</p>
+                  <p class="task-due-date">Due on Augest 18, 2025</p>
+                </div>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+            <li class="task-item">
+              <button class="task-button">
+                <div>
+                  <p class="task-name">Plan Culture Event</p>
+                  <p class="task-due-date">Due on February 2, 2025</p>
+                </div>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+            <li class="task-item">
+              <button class="task-button">
+                <div>
+                  <p class="task-name">Join Hackthon</p>
+                  <p class="task-due-date">Due on March 2, 2025</p>
+                </div>
+                <!-- arrow -->
+                <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24" class="arrow-icon"></iconify-icon>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Page 2 -->
+      <!-- Contact -->
+      <div id="contact-view" class="contact-view hide">
+        <div class="contact-container pink">
+          <div class="contact-header">
+            <h2 class="text">Contact</h2>
+          </div>
+          <div class="contact-main">
+
+            <div class="contact-name">
+              <label for="uname">Name</label>
+              <input type="text" name="uname" id="uname" placeholder="John">
+            </div>
+
+            <div class="contact-email">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" placeholder="example@xyz.com">
+            </div>
+
+            <div class="contact-msg">
+              <label for="message">Message</label>
+              <textarea name="message" id="message" placeholder="Enter your message here...."></textarea>
+            </div>
+            <button type="submit" class="contact-btn button pink-background regular-button">Submit</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- add + update task -->
+  <div id="set-task-overlay" class="overlay set-task-overlay hide">
+    <div class="overlay-content pink-background">
+      <!-- close button -->
+      <button class="button circle-button blue-background flex justify-center items-center close-button">
+        <iconify-icon icon="material-symbols:close-rounded" style="color: black" width="26" height="26"></iconify-icon>
+      </button>
+      <h1 class="header">Add task</h1>
+      <form class="form" autocomplete="off">
+        <label for="name" class="label">Name</label>
+        <input type="text" name="name" id="name" class="input white-background" required />
+        <label for="description" class="label">Description</label>
+        <textarea name="description" id="description" rows="8" class="textarea-input white-background"
+          required></textarea>
+        <label for="date" class="label">Date</label>
+        <input type="text" name="date" id="date" class="input white-background" required />
+        <!-- <h2 class="label">Due date</h2>
+        <div class="divided-inputs-container">
+          <div>
+            <label for="due-date-day" class="secondary-label">Day</label>
+            <input type="number" min="01" max="31" name="due-date-day" id="due-date-day" class="input white-background" required />
+          </div>
+          <div>
+            <label for="due-date-month" class="secondary-label">Month</label>
+            <input type="number" min="01" max="12" name="due-date-month" id="due-date-month" class="input white-background" required />
+          </div>
+          <div>
+            <label for="due-date-year" class="secondary-label">Year</label>
+            <input type="number"  min="2025" max="****" name="due-date-year" id="due-date-year" class="input white-background" required />
+          </div>
+        </div> -->
+        <!-- Status option -->
+        <h2 class="label">Status</h2>
+        <select name="status" id="status-option" class="status-select white-background flex items-center justify-between cursor-pointer ">
+          <option value="to-do" class="status-dropdown white-background">To-Do</option>
+          <option value="to-do" class="status-dropdown white-background">Doing</option>
+          <option value="to-do" class="status-dropdown white-background">Done</option>
+        </select>
+        <div class="text-center">
+          <button type="submit" class="button regular-button green-background cta-button">
+            Add task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- view task while click on  -->
+  <!-- <div id="view-task-overlay" class="overlay view-task-overlay hide">
+    <div class="overlay-content green-background">
+      close button
+      <button class="button circle-button blue-background flex justify-center items-center close-button">
+        <iconify-icon icon="material-symbols:close-rounded" style="color: black" width="26" height="26"></iconify-icon>
+      </button>
+      <h1 class="header no-margin">Name</h1>
+      <p class="value">some long task name</p>
+      <h1 class="header">Description</h1>
+      <p class="value">
+        some long task namesome long task namesome long task name
+      </p>
+      <div class="flex items-center">
+        <h1 class="header min-width">Due date</h1>
+        <p class="value">January 7, 2020</p>
+      </div>
+      <div class="flex items-center">
+        <h1 class="header min-width">Status</h1>
+        <p class="value status-value">
+          <span class="circle blue-background"></span><span>Doing</span>
+        </p>
+      </div>
+      <div class="control-buttons-container">
+        edit button
+        <button class="button circle-button pink-background flex justify-center items-center">
+          <iconify-icon icon="material-symbols:edit-rounded" style="color: black" width="24" height="24"></iconify-icon>
+        </button>
+        delete button
+        <button id="delete-task-cta" class="button circle-button pink-background flex justify-center items-center">
+          <iconify-icon icon="ic:round-delete" style="color: black" width="24" height="24"></iconify-icon>
+        </button>
+      </div>
+    </div>
+  </div> -->
+  <!-- import IconifyIcon web component -->
+  <script src="https://code.iconify.design/iconify-icon/1.0.5/iconify-icon.min.js"></script>
+  <!-- js -->
+  <script src="../js/main.js"></script>
+</body>
+
+</html>
