@@ -10,7 +10,7 @@ const closeButtons = document.querySelectorAll(".close-button");
 const statusSelect = document.getElementById("status-select");
 const statusDropdown = document.getElementById("status-dropdown");
 const taskItems = document.querySelectorAll(".task-item");
-// const viewTaskOverlay = document.getElementById("view-task-overlay");
+const viewTaskOverlay = document.getElementById("view-task-overlay");
 const deleteTaskCTA = document.getElementById("delete-task-cta");
 const notification = document.getElementById("notification");
 // the current active overlay
@@ -68,19 +68,19 @@ closeButtons.forEach((button) => {
 });
 
 // open status dropdown
-// statusSelect.addEventListener('click', () => {
-//   statusDropdown.classList.toggle("hide");
-// });
+statusSelect.addEventListener('click', () => {
+  statusDropdown.classList.toggle("hide");
+});
 
 // click a task
-// taskItems.forEach((task) => {
-//   task.addEventListener("click", () => {
-//     viewTaskOverlay.classList.remove("hide");
-//     activeOverlay = viewTaskOverlay;
-//     // disable scrolling for content behind the overlay
-//     document.body.classList.add("overflow-hidden");
-//   });
-// });
+taskItems.forEach((task) => {
+  task.addEventListener("click", () => {
+    viewTaskOverlay.classList.remove("hide");
+    activeOverlay = viewTaskOverlay;
+    // disable scrolling for content behind the overlay
+    document.body.classList.add("overflow-hidden");
+  });
+});
 
 // delete a task
 deleteTaskCTA.addEventListener("click", () => {
